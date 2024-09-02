@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Choose Username</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Choose Your Username</h1>
+    <form id="username-form">
+        <input type="text" id="username" placeholder="Enter your username" required>
+        <button type="submit">Join Chat</button>
+    </form>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        document.getElementById('username-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            socket.emit('set_username', username);
+            window.location.href = `/chat?username=${username}`;
+        });
+    </script>
+</body>
+</html>
